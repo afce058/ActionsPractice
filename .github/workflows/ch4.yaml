@@ -1,0 +1,28 @@
+name: Test docker action
+on:
+  repository_dispatch:
+    types:
+      - trigger_action
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run docker action
+        uses: actions/checkout@3
+
+      - name: run docker action
+        id: greet
+        uses: ./action1/
+        with:
+          who-to-greet: Pedro
+      
+      - name: print output
+        run: |
+          echo "The output answer is: ${{ steps.greet.outputs.answer }}"
+
+      - name: verify output
+        run: |
+          if [ "${{ steps.greet.outputs.answer }}" != "42" ]; then
+            echo "::error file=./action1/entrypoint.sh,line=4::Expected output validation failed"
+            exit 1
+          fi
