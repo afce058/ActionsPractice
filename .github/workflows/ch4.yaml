@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run docker action
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
 
       - name: run docker action
         id: greet
