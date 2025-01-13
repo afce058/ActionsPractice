@@ -36,7 +36,7 @@ jobs:
         run: |
           RANDOM_NUMBER=$(( RANDOM % 2 ))
           echo "::debug::Random number generated: $RANDOM_NUMBER"
-          if [ "$RANDOM_NUMBER" -eq 0 ]; then
+          if [ "$RANDOM_NUMBER" -eq 10 ]; then
             echo "::error::Simulated failure with Param1!"
             exit 1
           else
@@ -44,8 +44,9 @@ jobs:
           fi
       
       - name: set param1 as env variables
+        env:
+          PARAM1: ${{ needs.job1.outputs.output_param1 }}
         run: |
-          echo "PARAM1=${{ needs.job1.outputs.output_param1 }}" >> $GITHUB_ENV
           echo "::DEBUG::Set PARAM1 to env: ${{ needs.job1.outputs.output_param1 }}"
   
   job3:
