@@ -1,0 +1,7 @@
+name: primer job en un self-hosted
+on: [workflow_dispatch]
+jobs:
+  job1:
+    runs-on: [ self-hosted, macOS, X64 ]
+    steps:
+      - run: echo "hola mundo"
